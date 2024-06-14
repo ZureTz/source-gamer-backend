@@ -1,8 +1,9 @@
 .main-holder {
   background-color: #fefefe;
-  margin-top: 50px;
-  border-radius: 5px;
-  padding-left: 5%;
-  padding-right: 5%;
-  min-height: 1000px;
+  padding: 5vw;
+}
+
+#change-user-info-modal {
+  overflow: hidden;
+  max-width: 30vw;
 }

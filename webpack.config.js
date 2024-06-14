@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -9,6 +10,8 @@ module.exports = {
     "login/login-page": "./login/login-page.js",
     "register/register-page": "./register/register-page.js",
     "home/home-page": "./home/home-page.js",
+    "home/data/data-page": "./home/data/data-page.js",
+    "home/model/model-page": "./home/model/model-page.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -31,6 +34,17 @@ module.exports = {
       template: "./home/index.html",
       inject: false,
     }),
+    new HtmlWebpackPlugin({
+      filename: "home/data/index.html",
+      template: "./home/data/index.html",
+      inject: false,
+    }),
+    new HtmlWebpackPlugin({
+      filename: "home/model/index.html",
+      template: "./home/model/index.html",
+      inject: false,
+    }),
+    new MiniCssExtractPlugin(),
   ],
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -41,7 +55,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
