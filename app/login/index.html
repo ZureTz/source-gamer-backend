@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/login/login-page.css">
+    <link rel="stylesheet" href="/login/login-page.css" />
     <script defer src="/login/login-page.js"></script>
 
     <title>登录</title>
@@ -22,7 +22,7 @@
           <h2 class="center-align">登录</h2>
         </div>
 
-        <form class="col s12">
+        <form class="col s12" onsubmit="return false">
           <div class="row">
             <div class="input-field col s12">
               <label for="email">邮箱</label>
@@ -49,6 +49,7 @@
                 <i class="material-icons right">send</i>
               </button>
             </div>
+
             <div class="col s4 center-align">
               <strong>没有账号? <a href="/register/">注册</a></strong>
             </div>

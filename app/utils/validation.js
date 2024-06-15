@@ -1,20 +1,7 @@
-// export function checkUsername(username) {
-//   //   ^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
-//   //    └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
-//   //          │         │         │           │           no _ or . at the end
-//   //          │         │         │           │
-//   //          │         │         │           allowed characters
-//   //          │         │         │
-//   //          │         │         no __ or _. or ._ or .. inside
-//   //          │         │
-//   //          │         no _ or . at the beginning
-//   //          │
-//   //          username is 8-20 characters long
-//   const regex = new RegExp(
-//     /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
-//   );
-//   return regex.test(username);
-// }
+export function checkUsername(username) {
+  const regex = new RegExp(/^[a-zA-Z\d!#$%&'*+/=?^_`{|}~-]{3,20}$/);
+  return regex.test(username);
+}
 
 export function checkEmail(email) {
   const regex = new RegExp(
@@ -24,7 +11,6 @@ export function checkEmail(email) {
 }
 
 export function checkPassword(password) {
-  // Minimum eight characters, at least one letter and one number
-  const regex = new RegExp(/^[a-zA-Z\d!#$%&'*+/=?^_`{|}~-]{6,20}$/);
+  const regex = new RegExp(/^[a-zA-Z\d!#$%&'*+/=?^_`{|}~-]{6,255}$/);
   return regex.test(password);
 }

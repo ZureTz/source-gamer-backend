@@ -16,7 +16,7 @@
   </head>
 
   <body class="blue lighten-2">
-    <nav class="teal lighten-1 z-depth-3">
+    <nav class="z-depth-3">
       <div class="container nav-wrapper">
         <a href="/home/" class="breadcrumb">Home</a>
         <a href="#!" class="breadcrumb">Data</a>
@@ -24,9 +24,55 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="/home/data/">Data</a></li>
           <li><a href="/home/model/">Model</a></li>
+          <li>
+            <a class="waves-effect waves-light btn" id="logout-button">登出</a>
+          </li>
         </ul>
       </div>
     </nav>
-    <main class="container main-holder col s12 z-depth-3"></main>
+    <main class="container main-holder col s12 z-depth-3">
+      <h1>数据页</h1>
+      <div class="row">
+        <div class="col s3">
+          <a class="waves-effect waves-light btn" id="get-record-button">
+            <i class="material-icons left">insert_chart</i>
+            获取记录
+          </a>
+        </div>
+        <div class="col s2">
+          <a
+            class="waves-effect waves-light btn disabled"
+            id="get-previous-record-button"
+          >
+          上一页
+          <i class="material-icons left">arrow_back</i>
+          </a>
+        </div>
+        <div class="col s2">
+          <a
+            class="waves-effect waves-light btn disabled"
+            id="get-next-record-button"
+          >
+            下一页
+            <i class="material-icons right">arrow_forward</i>
+          </a>
+        </div>
+        <div class="col s2">
+          <a class="waves-effect waves-light btn disabled" id="reset-button">
+            <i class="material-icons left">refresh</i>
+            重置
+          </a>
+        </div>
+        <div class="col s3 right-align">
+          <a class="waves-effect waves-light btn" id="get-city-rank-button">
+            <i class="material-icons left">insert_chart</i>
+            获取城市排名
+          </a>
+        </div>
+      </div>
+      <div style="overflow-x: scroll">
+        <table class="highlight responsive-table" id="record-table"></table>
+      </div>
+    </main>
   </body>
 </html>

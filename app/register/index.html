@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/register/register-page.css">
+    <link rel="stylesheet" href="/register/register-page.css" />
     <script defer src="/register/register-page.js"></script>
 
     <title>注册</title>
@@ -21,7 +21,7 @@
           <h2 class="center-align">注册</h2>
         </div>
 
-        <form class="col s12">
+        <form class="col s12" onsubmit="return false">
           <div class="row">
             <div class="input-field col s12">
               <label for="email">邮箱</label>
@@ -38,14 +38,21 @@
 
           <div class="row">
             <div class="input-field col s12">
-              <label for="text">用户名(可选)</label>
+              <label for="repeat-password">请重复密码</label>
+              <input id="repeat-password" type="password" class="validate" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="username">用户名(可选)</label>
               <input id="username" type="text" class="validate" />
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s7">
-              <label for="text">验证码</label>
+              <label for="captcha">验证码</label>
               <input id="captcha" type="text" class="validate" />
             </div>
             <div class="col s5 right-align">

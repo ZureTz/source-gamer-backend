@@ -1,8 +1,8 @@
 import { toastError } from "./toast";
 
-export function redirect(locataion) {
+export function redirect(relativeLocataion) {
   const currentURL = window.location.origin;
-  location.assign(currentURL + locataion);
+  location.assign(currentURL + relativeLocataion);
 }
 
 function storageAvailable(type) {
