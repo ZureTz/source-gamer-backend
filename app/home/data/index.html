@@ -44,8 +44,8 @@
             class="waves-effect waves-light btn disabled"
             id="get-previous-record-button"
           >
-          上一页
-          <i class="material-icons left">arrow_back</i>
+            上一页
+            <i class="material-icons left">arrow_back</i>
           </a>
         </div>
         <div class="col s2">
@@ -70,6 +70,44 @@
           </a>
         </div>
       </div>
+
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">search</i>
+            搜索记录
+          </div>
+
+          <div class="collapsible-body">
+            <div class="row">
+              <div class="chat-area"></div>
+              <form class="col s12" onsubmit="return false">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <label for="textarea-input">请输入文字</label>
+                    <textarea
+                      id="textarea-input"
+                      class="materialize-textarea"
+                    ></textarea>
+                  </div>
+                  <div class="col s12 right-align">
+                    <button
+                      class="btn waves-effect waves-light"
+                      type="button"
+                      name="action"
+                      id="search-record-button"
+                    >
+                      搜索
+                      <i class="material-icons right">search</i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </li>
+      </ul>
+
       <div style="overflow-x: scroll">
         <table class="highlight responsive-table" id="record-table"></table>
       </div>

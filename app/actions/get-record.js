@@ -16,6 +16,53 @@ function removeTable() {
   });
 }
 
+// Response be like:
+// {code: 200, data: {…}, msg: ''}
+//   code: 200
+//   data:
+//     data: Array(10)
+//       0:
+//         {
+//          "ID": "v2-c84",
+//          "Cleaned_comments": "专家出来用嘴烧烧",
+//          "Option_word": "强大",
+//          "Score_": true,
+//          "T_room": 18,
+//          "S_room": 285,
+//          "HotDevice": "",
+//          "BurnningT": "",
+//          "Device_logo": "",
+//          "Hot_T": "",
+//          "Time_cyc": "1天",
+//          "Money_cyc": 100,
+//          "Gas_cyc": -1,
+//          "Ele_cyc": -1,
+//          "Boal_cyc": -1
+//         },
+const recordsHeaderNameAlias = {
+  // alias for comments
+  ID: "评论ID",
+  Cleaned_comments: "评论内容",
+  Option_word: "观点词",
+  Score_: "情感倾向",
+  T_room: "室内温度",
+  S_room: "房屋面积",
+  HotDevice: "取暖设备",
+  BurnningT: "燃料类型",
+  Device_logo: "设备品牌",
+  Hot_T: "热量释放形式",
+  Time_cyc: "时间周期",
+  Money_cyc: "该时间周期内消耗的费用",
+  Gas_cyc: "该时间周期内消耗的天然气(方)",
+  Ele_cyc: "该时间间周期内消耗的电(度)",
+  Boal_cyc: "该时间周期内消耗的煤(吨)",
+  // alias for ranks
+  Ip: "地区",
+  Pos: "正面情绪占比",
+  Neg: "负面情绪占比",
+  Num: "该地区评论数量",
+};
+
 function appendTable(dataArray) {
   // Get a reference to the table
   let table = document.getElementById(tableID);
@@ -25,7 +72,7 @@ function appendTable(dataArray) {
   for (const columnKey in dataArray[0]) {
     // insert a head cell
     let tableHeadRowTH = document.createElement("th");
-    let newText = document.createTextNode(columnKey.toString());
+    let newText = document.createTextNode(recordsHeaderNameAlias[columnKey]);
     // Append a text node to the cell
     tableHeadRowTH.appendChild(newText);
     // Append to the head
@@ -49,26 +96,15 @@ function appendTable(dataArray) {
   });
 }
 
-// Response be like:
-// {code: 200, data: {…}, msg: ''}
-//   code: 200
-//   data:
-//     data: Array(10)
-//       0:
-//         Boal_cyc: -1
-//         BurnningT: "天然气"
-//         Cleaned_comments: "哎，都是砖家研判、论证过的。现在没气啦，砖家不发声啦"
-//         Device_logo: ""
-//         Ele_cyc: -1
-//         Gas_cyc: 3000
-//         Hot_T: ""
-//         ID: ""
-//         Money_cyc: -1
-//         Option_word: "找不到"
-//         S_room: 130
-//         Score_: false
-//         T_room: 25
-//         Time_cyc: "地暖"
+function disableButton(buttonID) {
+  const button = document.getElementById(buttonID);
+  button.classList.add("disabled");
+}
+
+function enableButton(buttonID) {
+  const button = document.getElementById(buttonID);
+  button.classList.remove("disabled");
+}
 
 async function getAndApplyRecords() {
   const header = new Headers();
@@ -99,7 +135,7 @@ async function getAndApplyRecords() {
         break;
       case 401:
         toastError(data.data.msg);
-        redirect("login");
+        redirect("/login/");
         break;
       case 200:
         toastMessage("成功获取记录");
@@ -120,22 +156,12 @@ export async function onGetRecordButtonClicked(event) {
   await getAndApplyRecords();
   tableCounter += 10;
 
-  const getRecordButton = document.getElementById("get-record-button");
-  getRecordButton.classList.add("disabled");
+  disableButton("get-record-button");
+  disableButton("get-city-rank-button");
 
-  const getCityRankButton = document.getElementById("get-city-rank-button");
-  getCityRankButton.classList.add("disabled");
-
-  const getPreviousRecordButton = document.getElementById(
-    "get-previous-record-button"
-  );
-  getPreviousRecordButton.classList.remove("disabled");
-
-  const getNextRecordButton = document.getElementById("get-next-record-button");
-  getNextRecordButton.classList.remove("disabled");
-
-  const resetButton = document.getElementById("reset-button");
-  resetButton.classList.remove("disabled");
+  enableButton("get-previous-record-button");
+  enableButton("get-next-record-button");
+  enableButton("reset-button");
 }
 
 export async function onGetPreviousRecordButtonClicked(event) {
@@ -157,25 +183,20 @@ export function onResetButtonClicked(event) {
   tableCounter = 0;
   removeTable();
 
-  const getRecordButton = document.getElementById("get-record-button");
-  getRecordButton.classList.remove("disabled");
+  enableButton("get-record-button");
 
-  const getPreviousRecordButton = document.getElementById(
-    "get-previous-record-button"
-  );
-  getPreviousRecordButton.classList.add("disabled");
+  disableButton("get-previous-record-button");
+  disableButton("get-next-record-button");
+  disableButton("reset-button");
 
-  const getNextRecordButton = document.getElementById("get-next-record-button");
-  getNextRecordButton.classList.add("disabled");
-
-  const resetButton = document.getElementById("reset-button");
-  resetButton.classList.add("disabled");
-
-  const getCityRankButton = document.getElementById("get-city-rank-button");
-  getCityRankButton.classList.remove("disabled");
+  enableButton("get-city-rank-button");
 }
 
 export async function onGetCityRankButtonClicked(event) {
+  const header = new Headers();
+  const token = getFromLocalStorage(tokenLabel);
+  header.append("Authorization", "Bearer " + token);
+
   const url =
     window.location.protocol +
     "//" +
@@ -186,6 +207,7 @@ export async function onGetCityRankButtonClicked(event) {
   try {
     const response = await fetch(url, {
       method: "GET",
+      headers: header,
     });
     const data = await response.json();
     switch (data.code) {
@@ -203,12 +225,72 @@ export async function onGetCityRankButtonClicked(event) {
     console.error("Error:", error);
   }
 
-  const getCityRankButton = document.getElementById("get-city-rank-button");
-  getCityRankButton.classList.add("disabled");
+  disableButton("get-city-rank-button");
+  disableButton("get-record-button");
 
-  const getRecordButton = document.getElementById("get-record-button");
-  getRecordButton.classList.add("disabled");
+  enableButton("reset-button");
+}
 
-  const resetButton = document.getElementById("reset-button");
-  resetButton.classList.remove("disabled");
+export async function onSearchRecordButtonClicked(event) {
+  const comment = document.getElementById("textarea-input").value;
+  if (comment.length === 0) {
+    toastError("搜索内容不能为空 !");
+    return;
+  }
+
+  const header = new Headers();
+  const token = getFromLocalStorage(tokenLabel);
+  header.append("Authorization", "Bearer " + token);
+
+  const formData = new FormData();
+  formData.append("comment", comment);
+
+  // http://localhost:8080/api/user/g_record
+  const url =
+    window.location.protocol +
+    "//" +
+    window.location.hostname +
+    ":8080" +
+    "/api/user/search_record";
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: header,
+      body: formData,
+    });
+    const data = await response.json();
+    switch (data.code) {
+      case 400:
+        toastError(data.msg);
+        break;
+      case 401:
+        toastError(data.data.msg);
+        redirect("/login/");
+        break;
+      case 200:
+        toastMessage("成功获取记录");
+        removeTable();
+        appendTable(data.data.data);
+        break;
+
+      default:
+        // code 无效
+        throw new Error("Undefined response code");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  disableButton("get-record-button");
+  disableButton("get-city-rank-button");
+  disableButton("get-previous-record-button");
+  disableButton("get-next-record-button");
+
+  enableButton("reset-button");
+
+  const collapseInstance = M.Collapsible.getInstance(
+    document.querySelector(".collapsible")
+  );
+  collapseInstance.close();
 }

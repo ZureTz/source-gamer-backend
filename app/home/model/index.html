@@ -30,8 +30,99 @@
         </ul>
       </div>
     </nav>
+
+    <!-- SideNav -->
+    <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view">
+          <!-- <div class="background">
+            <img src="images/office.jpg" />
+          </div>
+          <a href="#user"><img class="circle" src="images/yuna.jpg" /></a>
+          <a href="#name"><span class="white-text name">John Doe</span></a>
+          <a href="#email"
+            ><span class="white-text email">jdandturk@gmail.com</span></a
+          > -->
+        </div>
+      </li>
+
+      <li>
+        <a href="#!"
+          ><i class="material-icons">chat_bubble_outline</i>聊天记录</a
+        >
+      </li>
+      <!-- <li><a href="#!">Second Link</a></li> -->
+      <li><div class="divider"></div></li>
+      <!-- <li><a class="subheader">Subheader</a></li> -->
+      <!-- e.g. -->
+      <!-- <li>
+          <a class="waves-effect single-record" href="#!"
+            >Third Link With Waves</a
+          >
+        </li> -->
+    </ul>
+
     <main class="container main-holder col s12 z-depth-3">
       <h1>模型页</h1>
+
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons" style="font-size: 35px">cloud_queue</i>
+            <h5>Chat with model</h5>
+          </div>
+
+          <div class="collapsible-body">
+            <div class="row">
+              <div class="chat-area"></div>
+              <form class="col s12" onsubmit="return false">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <label for="textarea-input">请输入文字</label>
+                    <textarea
+                      id="textarea-input"
+                      class="materialize-textarea"
+                    ></textarea>
+                  </div>
+                  <div class="col s12 right-align">
+                    <button
+                      class="btn-large waves-effect waves-light"
+                      type="button"
+                      name="action"
+                      id="send-text-button"
+                    >
+                      发送
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons" style="font-size: 35px"
+              >chat_bubble_outline</i
+            >
+            <h5>获取聊天记录</h5>
+          </div>
+          <div class="collapsible-body">
+            <div class="col s12 left-align">
+              <button
+                class="btn-large waves-effect waves-light center"
+                data-target="slide-out"
+                type="button"
+                name="action"
+                id="get-chat-record-button"
+              >
+              <i class="material-icons left">cloud_download</i>
+                获取聊天记录
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </main>
   </body>
 </html>

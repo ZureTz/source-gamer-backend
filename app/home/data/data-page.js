@@ -10,9 +10,14 @@ import {
   onGetPreviousRecordButtonClicked,
   onGetRecordButtonClicked,
   onResetButtonClicked,
+  onSearchRecordButtonClicked,
 } from "../../actions/get-record";
 
-window.addEventListener("load", checkUserIdentity);
+window.addEventListener("load", async () => {
+  await checkUserIdentity();
+  // init collapsible
+  M.Collapsible.init(document.querySelectorAll(".collapsible"), {});
+});
 
 const logoutButton = document.getElementById("logout-button");
 logoutButton.addEventListener("click", onLogOutButtonClicked);
@@ -36,3 +41,40 @@ resetButton.addEventListener("click", onResetButtonClicked);
 
 const getCityRankButton = document.getElementById("get-city-rank-button");
 getCityRankButton.addEventListener("click", onGetCityRankButtonClicked);
+
+const searchRecordButton = document.getElementById("search-record-button");
+searchRecordButton.addEventListener("click", onSearchRecordButtonClicked);
+
+// code for dragger (no need)
+
+// let mouseDown = false;
+// let startX, scrollLeft;
+// const slider = document.getElementById("dragger");
+// slider.style.cursor = "grab";
+
+// const startDragging = (event) => {
+//   mouseDown = true;
+//   slider.style.cursor = "grabbing";
+//   startX = event.pageX - slider.offsetLeft;
+//   scrollLeft = slider.scrollLeft;
+// };
+
+// const stopDragging = (event) => {
+//   mouseDown = false;
+//   slider.style.cursor = "grab";
+// };
+
+// const move = (event) => {
+//   event.preventDefault();
+//   if (!mouseDown) {
+//     return;
+//   }
+//   const x = event.pageX - slider.offsetLeft;
+//   const scroll = x - startX;
+//   slider.scrollLeft = scrollLeft - scroll;
+// };
+
+// slider.addEventListener("mousemove", move);
+// slider.addEventListener("mousedown", startDragging);
+// slider.addEventListener("mouseup", stopDragging);
+// slider.addEventListener("mouseleave", stopDragging);
