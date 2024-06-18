@@ -14,7 +14,7 @@ npm install
 npm run test
 ```
 
-Then acess the page via [localhost:9000](http://localhost:9000).
+Then access the page via [localhost:9000](http://localhost:9000).
 
 ## Distribute the web
 

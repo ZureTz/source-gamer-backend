@@ -63,6 +63,8 @@ const recordsHeaderNameAlias = {
   Num: "该地区评论数量",
 };
 
+const ingoredColumns = new Set(["Chat"]);
+
 function appendTable(dataArray) {
   // Get a reference to the table
   let table = document.getElementById(tableID);
@@ -70,6 +72,9 @@ function appendTable(dataArray) {
   // 插入表头
   let tableHeadRow = table.insertRow();
   for (const columnKey in dataArray[0]) {
+    if (ingoredColumns.has(columnKey)) {
+      continue;
+    }
     // insert a head cell
     let tableHeadRowTH = document.createElement("th");
     let newText = document.createTextNode(recordsHeaderNameAlias[columnKey]);
@@ -85,6 +90,9 @@ function appendTable(dataArray) {
     const newRow = table.insertRow();
     // get values in the row
     for (const columnKey in row) {
+      if (ingoredColumns.has(columnKey)) {
+        continue;
+      }
       // check if value === -1
       const value = row[columnKey] === -1 ? "" : row[columnKey];
       // Insert a cell at the end of the row
